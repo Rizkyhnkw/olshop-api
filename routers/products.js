@@ -6,11 +6,15 @@ const mongoose = require("mongoose");
 
 // Read
 router.get("/", async (req, res) => {
-  const productlist = await Product.find().limit(8);
-  if (!productlist) {
-    res.status(500).json({ success: false }); //or use {error}
+  let filter = {}
+  if (req.query.categories) {
+    filter = {category: req.query.categories.split(',')}
   }
-  res.send(productlist);
+  const productlist = await Product.find(filter).populate('category')
+  if (!productlist) {
+    res.status(500).json({success: false})
+  }
+res.send(productlist)
 });
 
 router.get(`/get/featured/:count`, async (req, res) =>{

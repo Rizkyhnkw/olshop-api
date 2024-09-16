@@ -11,6 +11,12 @@ icon: {
 color: {
     type: String
 }
-
 })
+
+productSchema.virtual('id').get(function () {
+    return this._id.toHexString()
+  })
+  productSchema.set('toJSON',{
+    virtuals: true
+  })
 exports.Category = mongoose.model('Category', categorySchema)

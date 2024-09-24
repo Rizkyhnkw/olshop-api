@@ -1,18 +1,44 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    name: String,
-    image: String,
-    // stock: {
-    //     type: Number,
-    //     recuired: true
-    // }
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    phone: {
+      type: String,
+      required: true
+    },
+    passwordHash: {
+      type: String,
+      required: true
+    },
+    isAdmin: {
+      type: Boolean,
+      required: false
+    },
+    street: {
+      type: String,
+      required: ''
+    },
+    city: {
+      type: String,
+      required: ''
+    },
+    country: {
+      type: String,
+      required: ''
+    },
 })
 
-productSchema.virtual('id').get(function () {
+userSchema.virtual('id').get(function () {
     return this._id.toHexString()
   })
-  productSchema.set('toJSON',{
+  userSchema.set('toJSON',{
     virtuals: true
   })
 exports.User = mongoose.model('User', userSchema)
